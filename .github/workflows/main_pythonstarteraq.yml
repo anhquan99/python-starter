@@ -57,7 +57,13 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
+      - name: Set build number environment variable
+        run: |
+          echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
 
+      - name: Print build number
+        run: echo "Build number is ${{ env.BUILD_NUMBER }}"
+        
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
